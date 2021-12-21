@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
 
-export default function Todo() {
-    return (
-        <div>
-            
-        </div>
-    )
+export default function Todo(props) {
+  const { _id, title, isCompleted } = props.task;
+  return (
+    <div className="Todo">
+      <p >TITLE: {title}</p>
+    </div>
+  );
 }

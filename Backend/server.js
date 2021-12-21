@@ -39,7 +39,7 @@ app.get("/tasks", (req, res) => {
 // });
 
 
-the up endpoint is replace to these two
+//the up endpoint is replace to these two
 app.get("/completed", (req, res) => {
   Todo.find({ isCompleted: true }, (err, data) => {
     if (err) {

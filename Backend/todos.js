@@ -6,6 +6,6 @@ const todoSchema=new Schema({
 })
 
 // Model
-const Todo=model('Todo',todoSchema)
+const Todos=model('Todo',todoSchema)
 
-module.exports = Todo
+module.exports = Todos

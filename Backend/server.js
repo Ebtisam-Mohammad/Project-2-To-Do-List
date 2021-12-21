@@ -1,16 +1,16 @@
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 const app = express();
 
 const db = require("./db");
-const Todo = require("./todo");
+const Todo = require("./todos");
 // console.log(Todo);
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 app.get("/", (req, res) => {
-  res.json("GET / is Working");
+  res.json("GET / is WORKING...");
 });
 
 // CRUD: Create, Read, Update, Delete
@@ -20,42 +20,6 @@ app.get("/tasks", (req, res) => {
     if (err) {
       console.log("ERROR: ", err);
     } else {
-      res.json(data);
-    }
-  });
-});
-
-//              ?key=value&key=value
-// app.get("/filter", (req, res) => {
-//   console.log(req.query);
-//   Todo.find({ isCompleted: req.query.isCompleted }, (err, data) => {
-//     if (err) {
-//       console.log("ERR", err);
-//     } else {
-//       // console.log(data);
-//       res.json(data);
-//     }
-//   });
-// });
-
-
-//the up endpoint is replace to these two
-app.get("/completed", (req, res) => {
-  Todo.find({ isCompleted: true }, (err, data) => {
-    if (err) {
-      console.log("ERR", err);
-    } else {
-      // console.log(data);
-      res.json(data);
-    }
-  });
-});
-app.get("/not_completed", (req, res) => {
-  Todo.find({ isCompleted: false }, (err, data) => {
-    if (err) {
-      console.log("ERR", err);
-    } else {
-      // console.log(data);
       res.json(data);
     }
   });
@@ -72,9 +36,9 @@ app.post("/tasks", (req, res) => {
       res.status(201).json(newTask);
     }
   });
-});
+ });
 
-app.delete("/tasks/:id", (req, res) => {
+ app.delete("/tasks/:id", (req, res) => {
   // console.log("37:", req.params.id);
 
   Todo.deleteOne({ _id: req.params.id }, (err, deleteObj) => {
@@ -84,21 +48,6 @@ app.delete("/tasks/:id", (req, res) => {
       deleteObj.deletedCount === 1
         ? res.json("Delete one todo successfully")
         : res.status(404).json("This todo is not found");
-    }
-  });
-});
-
-app.delete("/tasks", (req, res) => {
-  // console.log("37:", req.params.id);
-
-  Todo.deleteMany({ isCompleted: true }, (err, deleteObj) => {
-    if (err) {
-      console.log("ERROR: ", err);
-    } else {
-      console.log(deleteObj);
-      deleteObj.deletedCount === 0
-        ? res.status(404).json("There is no completed todo found")
-        : res.json("Delete all completed todos successfully");
     }
   });
 });
@@ -122,6 +71,59 @@ app.put("/tasks/:id", (req, res) => {
   );
 });
 
+//
+
+//              ?key=value&key=value
+app.get("/filter", (req, res) => {
+  console.log(req.query);
+  Todo.find({ isCompleted: req.query.isCompleted }, (err, data) => {
+    if (err) {
+      console.log("ERR", err);
+    } else {
+      // console.log(data);
+      res.json(data);
+    }
+  });
+});
+/*
+the up endpoint is replace to these two
+app.get("/completed", (req, res) => {
+  Todo.find({ isCompleted: true }, (err, data) => {
+    if (err) {
+      console.log("ERR", err);
+    } else {
+      // console.log(data);
+      res.json(data);
+    }
+  });
+});
+app.get("/not_completed", (req, res) => {
+  Todo.find({ isCompleted: false }, (err, data) => {
+    if (err) {
+      console.log("ERR", err);
+    } else {
+      // console.log(data);
+      res.json(data);
+    }
+  });
+});
+*/
+
+app.delete("/tasks", (req, res) => {
+  // console.log("37:", req.params.id);
+
+  Todo.deleteMany({ isCompleted: true }, (err, deleteObj) => {
+    if (err) {
+      console.log("ERROR: ", err);
+    } else {
+      console.log(deleteObj);
+      deleteObj.deletedCount === 0
+        ? res.status(404).json("There is no completed todo found")
+        : res.json("Delete all completed todos successfully");
+    }
+  });
+});
+
 app.put("/tasks/:id/:isCompleted", (req, res) => {
   console.log("124:", req.params);
   Todo.updateOne(
@@ -140,7 +142,6 @@ app.put("/tasks/:id/:isCompleted", (req, res) => {
     }
   );
 });
-
 app.listen(5000, () => {
   console.log("SERVER IS WORKING ..");
 });

@@ -26,18 +26,19 @@ app.get("/tasks", (req, res) => {
 });
 
 //              ?key=value&key=value
-app.get("/filter", (req, res) => {
-  console.log(req.query);
-  Todo.find({ isCompleted: req.query.isCompleted }, (err, data) => {
-    if (err) {
-      console.log("ERR", err);
-    } else {
-      // console.log(data);
-      res.json(data);
-    }
-  });
-});
-/*
+// app.get("/filter", (req, res) => {
+//   console.log(req.query);
+//   Todo.find({ isCompleted: req.query.isCompleted }, (err, data) => {
+//     if (err) {
+//       console.log("ERR", err);
+//     } else {
+//       // console.log(data);
+//       res.json(data);
+//     }
+//   });
+// });
+
+
 the up endpoint is replace to these two
 app.get("/completed", (req, res) => {
   Todo.find({ isCompleted: true }, (err, data) => {
@@ -59,7 +60,7 @@ app.get("/not_completed", (req, res) => {
     }
   });
 });
-*/
+
 
 app.post("/tasks", (req, res) => {
   // console.log('25:',req.body);

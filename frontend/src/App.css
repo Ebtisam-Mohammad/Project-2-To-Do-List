@@ -3,16 +3,19 @@ body{
    /* background-color: rgb(42, 51, 54); */
    justify-content: left;
 }
+.div1{
+  justify-content: center;
+}
 .App {
   text-align: center;
   
-  background-color: rgb(243, 221, 209);
+  background-color: rgb(180, 204, 235);
   box-shadow: 5px 10px #c7c2c2;
   border-radius: 40px;
 }
 
 .par1{
-  background-color: rgb(184, 157, 146);
+  /* background-color: rgb(223, 158, 121); */
   padding-top: 0%;
   /* padding:  30px 30px; */
   color: white;
@@ -31,4 +34,14 @@ body{
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 12px;
+}
+
+.img{
+  border-radius: 50%;
+  text-align: left;
+}
+
+.Todo{
+  text-align: left;
+  padding: 20px 30px 20px 30px;
 }

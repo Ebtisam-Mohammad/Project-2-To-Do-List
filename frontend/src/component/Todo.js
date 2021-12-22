@@ -5,6 +5,7 @@ export default function Todo(props) {
   return (
     <div className="Todo">
       <p >TITLE: {title}</p>
+      
     </div>
   );
 }

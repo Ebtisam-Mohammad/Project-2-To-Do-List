@@ -3,9 +3,11 @@ import "./App.css";
 import axios from "axios";
 import Todo from "./component/Todo";
 import Add from "./component/Add";
+import Register from "./component/Register"
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
+
 
   useEffect(() => {
     getData();
@@ -111,13 +113,14 @@ export default function App() {
   ));
   return (
     <div className="App">
-      <h1 className="par1"> TO DO 📌<Add createFunc={postNewTodo} /></h1>
+      <h1 className="par1">TO DO📌<Add createFunc={postNewTodo} /></h1>
 
       {mapOverTasks}
       <button className="button1" onClick={getData}>🐌</button>
       <button className="button1" onClick={deleteTasks}>x</button>
       <button className="button1" onClick={() => {filterData(true);}}>🐇</button>
       <button className="button1" onClick={() => {filterData(false);}}>🐢</button>
+      <Register/>
     </div>
   );
 }

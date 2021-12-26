@@ -13,5 +13,5 @@ db.on("error", (err) => {
 });
 
 db.on("connected", (err) => {
-  console.log("MongoDB IS CONNECTED ..");
+  console.log("MongoDB IS CONNECTED ...");
 });

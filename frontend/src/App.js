@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import oneImage from './1.png'
-
 import axios from "axios";
 import Todo from "./component/Todo";
 import Add from "./component/Add";
-
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -61,6 +58,21 @@ export default function App() {
       });
   };
 
+  const deleteTasks = () => {
+    axios
+      .delete(`http://localhost:5000/tasks`)
+      //     (`http://localhost:5000/tasks/${id}`)
+      .then((response) => {
+        // console.log('RESPONSE: ', response);
+        console.log("DATA: ", response.data);
+        getData();
+        // change react hooks state using spread operator
+      })
+      .catch((err) => {
+        console.log("ERR: ", err);
+      });
+  };
+
   const toggleTodo = (id, newStatus) => {
     axios
       .put(`http://localhost:5000/tasks/${id}/${newStatus}`)
@@ -69,6 +81,20 @@ export default function App() {
         console.log("DATA: ", response.data);
         getData();
         // change react hooks state using spread operator
+      })
+      .catch((err) => {
+        console.log("ERR: ", err);
+      });
+  };
+  const filterData = (status) => {
+    // should bring data using axios
+    // from backend (GET /tasks)
+    axios
+      .get(`http://localhost:5000/filter?isCompleted=${status}`)
+      .then((response) => {
+        // console.log('RESPONSE: ', response);
+        console.log("DATA: ", response.data);
+        setTasks(response.data);
       })
       .catch((err) => {
         console.log("ERR: ", err);
@@ -85,18 +111,13 @@ export default function App() {
   ));
   return (
     <div className="App">
-      <h1 className="par1">TO DO LIST</h1>
-      <div className="div1">
-      <img className="img" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4KdxFSKrOkNaX3UkoTU9jcRztTBdq-hOK8Pr2z6_jFVPbo_TqGDQHVk4R4zpbaIUTiBM&usqp=CAU' alt='img'></img>
-      </div>
-      {/* when click on this button 
-      should call function bring Data */}
-      <button className="button" onClick={getData}>
-        GET TASKS
-      </button>
-      <Add createFunc={postNewTodo} />
+      <h1 className="par1"> TO DO 📌<Add createFunc={postNewTodo} /></h1>
 
       {mapOverTasks}
+      <button className="button1" onClick={getData}>🐌</button>
+      <button className="button1" onClick={deleteTasks}>x</button>
+      <button className="button1" onClick={() => {filterData(true);}}>🐇</button>
+      <button className="button1" onClick={() => {filterData(false);}}>🐢</button>
     </div>
   );
 }

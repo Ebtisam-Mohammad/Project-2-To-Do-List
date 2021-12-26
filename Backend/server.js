@@ -1,11 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
 const db = require("./db");
 const Todo = require("./todos");
 // console.log(Todo);
-
 app.use(express.json());
 app.use(cors());
 
@@ -24,7 +22,6 @@ app.get("/tasks", (req, res) => {
     }
   });
 });
-
 
 app.post("/tasks", (req, res) => {
   // console.log('25:',req.body);
@@ -71,9 +68,7 @@ app.put("/tasks/:id", (req, res) => {
   );
 });
 
-//
-
-//              ?key=value&key=value
+//              ?key=value&key=value =>  filter?isCompleted=true
 app.get("/filter", (req, res) => {
   console.log(req.query);
   Todo.find({ isCompleted: req.query.isCompleted }, (err, data) => {
@@ -85,6 +80,7 @@ app.get("/filter", (req, res) => {
     }
   });
 });
+
 /*
 the up endpoint is replace to these two
 app.get("/completed", (req, res) => {

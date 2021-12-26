@@ -12,14 +12,14 @@ export default function Add(props) {
 
   return (
     <div className="Add">
-      <input
+      <input className="input"
         type="text"
-        placeholder="Write new title here ..."
+        placeholder=""
         onChange={(e) => {
           setNewTitle(e.target.value);
         }}
       />
-      <button className="button" onClick={createNewTodo}>Create New Todo</button>
+      <button className="new" onClick={createNewTodo}>&#9998;</button>
     </div>
   );
 }

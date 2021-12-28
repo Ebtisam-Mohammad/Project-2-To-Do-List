@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {Link } from "react-router-dom"
 
 export default function Register() {
-  const [email, setEmail] = useState("m.jouza7@yahoo.com");
-  const [password, setPassword] = useState("123");
-  const [username, setUsername] = useState("Jouza 7");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const registerFunc = (e) => {
     e.preventDefault();
@@ -28,11 +29,67 @@ export default function Register() {
 
   return (
     <div className="Register">
-      <form action="">
+     <form>
+     <div className="form-floating m-3">
+          <input
+            type="email"
+            className="form-control"
+            id="floatingInput"
+            // placeholder="name@example.com"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            value={email}
+          />
+          <label htmlFor="floatingInput">Email address</label>
+        </div>
+        <div className="m-3 form-floating">
+          <input
+            type="password"
+            className="form-control"
+            id="floatingPassword"
+            // placeholder="Write password here ..."
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            value={password}
+          />
+          <label htmlFor="floatingPassword">Password</label>
+        </div>
+        <div className="m-3 form-floating">
+          <input
+            type="username"
+            className="form-control"
+            id="floatingUsername"
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+            value={username}
+          />
+          <label htmlFor="floatingPassword">Password</label>
+        </div>
+        <div className="text-center">
+          <input
+            type="submit"
+            value="register"
+            onClick={registerFunc}
+            className="btn btn-outline-success"
+          />
+
+          <Link to="/Register" className="btn btn-link">
+          You already have an account?
+          </Link>
+        </div>
+      </form>
+      <br></br>
+    </div>
+  );
+}
+      {/* <form action="">
         <label htmlFor="email">Email:</label>
-        <input
+        <input className="input2"
           type="email"
-          placeholder="Write email here ..."
+          // placeholder="Write email here ..."
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -40,9 +97,9 @@ export default function Register() {
         />
         <br />
         <label htmlFor="password">Password:</label>
-        <input
+        <input className="input2"
           type="password"
-          placeholder="Write password here ..."
+          // placeholder="Write password here ..."
           onChange={(e) => {
             setPassword(e.target.value);
           }}
@@ -50,17 +107,16 @@ export default function Register() {
         />
         <br />
         <label htmlFor="username">Username:</label>
-        <input
+        <input className="input2"
           type="text"
-          placeholder="Write username here ..."
+          // placeholder="Write username here ..."
           onChange={(e) => {
             setUsername(e.target.value);
           }}
           value={username}
         />
         <br />
-        <input type="submit" value="Register" onClick={registerFunc} />
-      </form>
-    </div>
-  );
-}
+        <Link to="/register">You already have an account?</Link><br />
+        <input className="button2" type="submit" value="Register" onClick={registerFunc} />
+        
+      </form> */}

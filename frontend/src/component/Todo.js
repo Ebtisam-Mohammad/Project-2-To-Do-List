@@ -12,7 +12,7 @@ export default function Todo(props) {
       </span>
 
       <button
-        className="button"
+        className="btn btn-success"
         onClick={() => {
           props.deleteTodo(_id); }} > &#xf410;</button>
     </div>

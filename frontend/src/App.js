@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
+import { Routes, Route, Link } from "react-router-dom"
 import Todo from "./component/Todo";
 import Add from "./component/Add";
-import Register from "./component/Register"
+import Register from "./component/Register";
+import Login from "./component/Login";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     getData();
@@ -103,6 +106,11 @@ export default function App() {
       });
   };
 
+  const logoutFunc = () => {
+    setIsLoggedIn(false);
+    setUsername("");
+  };
+
   const mapOverTasks = tasks.map((taskObj, i) => (
     <Todo
       key={i}
@@ -113,14 +121,92 @@ export default function App() {
   ));
   return (
     <div className="App">
-      <h1 className="par1">TO DO📌<Add createFunc={postNewTodo} /></h1>
+
+     {/* <nav>
+        <Link to="/Home">📌</Link> {" | "}
+        <Link to="/UserAcounnt">{username}</Link>{" | "}
+        <Link to="/login">Login</Link> {" | "}
+        <Link to="/register">Register</Link>{" "}
+        <button className="btn btn-outline-success btn-sm" onClick={logoutFunc}>LogOut</button>
+      </nav> */}
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+        <div class="container-fluid">
+          <Link to="/Home" class="navbar-brand">TO DO LIST📌</Link>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            
+            <li class="nav-item">
+            <Link to="/UserAcounnt">{username}</Link>
+              </li>
+              <li class="nav-item">
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link to="/register" className="nav-link">
+                  Register
+                </Link>
+              </li>
+            </ul>
+            <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+          </div>
+        </div>
+      </nav>
+
+      <br />
+
+      <Routes>
+        <Route path="/home" element={
+        <div className="text-center">
+      <h1 className="par1">
+        TO-DO📌
+        <Add createFunc={postNewTodo} />
+      </h1>
 
       {mapOverTasks}
-      <button className="button1" onClick={getData}>🐌</button>
-      <button className="button1" onClick={deleteTasks}>x</button>
-      <button className="button1" onClick={() => {filterData(true);}}>🐇</button>
-      <button className="button1" onClick={() => {filterData(false);}}>🐢</button>
-      <Register/>
+      <button className="btn btn-light" onClick={getData}>
+        🐌 all
+      </button>
+    
+      <button
+        className="btn btn-light"
+        onClick={() => {
+          filterData(true);
+        }}
+      >
+        🐇 Done
+      </button>
+      <button
+        className="btn btn-light"
+        onClick={() => {
+          filterData(false);
+        }}
+      >
+        🐢 Stil
+      </button>
+      <button className="btn btn-light" onClick={deleteTasks}>
+        x delete
+      </button>
+      </div>} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/Login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
+      </Routes>
     </div>
+    
   );
 }

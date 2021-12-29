@@ -121,17 +121,9 @@ export default function App() {
   ));
   return (
     <div className="App">
-
-     {/* <nav>
-        <Link to="/Home">📌</Link> {" | "}
-        <Link to="/UserAcounnt">{username}</Link>{" | "}
-        <Link to="/login">Login</Link> {" | "}
-        <Link to="/register">Register</Link>{" "}
-        <button className="btn btn-outline-success btn-sm" onClick={logoutFunc}>LogOut</button>
-      </nav> */}
       <nav class="navbar navbar-expand-lg navbar-light bg-light" >
         <div class="container-fluid">
-          <Link to="/Home" class="navbar-brand">TO DO LIST📌</Link>
+          <Link to="/Home" class="navbar-brand"> TO DO LIST📌</Link>
           <button
             class="navbar-toggler"
             type="button"
@@ -145,17 +137,13 @@ export default function App() {
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-            
-            <li class="nav-item">
-            <Link to="/UserAcounnt">{username}</Link>
-              </li>
               <li class="nav-item">
-                <Link to="/login" className="nav-link">
+                <Link to="/login" className="nav-link m-2">
                   Login
                 </Link>
               </li>
               <li class="nav-item">
-                <Link to="/register" className="nav-link">
+                <Link to="/register" className="nav-link m-2">
                   Register
                 </Link>
               </li>
@@ -165,26 +153,37 @@ export default function App() {
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
           </div>
+          <button
+          type="button"
+          class="btn btn btn-light"
+          data-bs-toggle="popover"
+          title="Todo List"
+          data-bs-content="Welcome to Todo List Web Application"
+        >
+          {username ? "Welcome " + username : "Please Login"}{" "}
+        </button></div>
+        <div className="m-2">
+              <button className="btn btn-outline-success btn-sm" onClick={logoutFunc}>LogOut</button>
         </div>
       </nav>
 
       <br />
-
+  
       <Routes>
         <Route path="/home" element={
         <div className="text-center">
       <h1 className="par1">
-        TO-DO📌
+      TO DO LIST📌
         <Add createFunc={postNewTodo} />
       </h1>
 
       {mapOverTasks}
-      <button className="btn btn-light" onClick={getData}>
+      <button className="btn btn-light m-2" onClick={getData}>
         🐌 all
       </button>
     
       <button
-        className="btn btn-light"
+        className="btn btn-light m-2"
         onClick={() => {
           filterData(true);
         }}
@@ -192,21 +191,25 @@ export default function App() {
         🐇 Done
       </button>
       <button
-        className="btn btn-light"
+        className="btn btn-light m-2"
         onClick={() => {
           filterData(false);
         }}
       >
         🐢 Stil
       </button>
-      <button className="btn btn-light" onClick={deleteTasks}>
+      <button className="btn btn-light m-2" onClick={deleteTasks}>
         x delete
       </button>
       </div>} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/Login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
+      <Route
+          path="/login"
+          element={
+            <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />
+          }
+        />
+      <Route path="/register" element={<Register />} />
       </Routes>
     </div>
-    
   );
 }

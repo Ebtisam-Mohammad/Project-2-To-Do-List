@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import {Link } from "react-router-dom"
 
-export default function Login(props) {
-  const [email, setEmail] = useState("m.jouza3@gmail.com");
-  const [password, setPassword] = useState("1234");
 
+export default function Login(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginStatus, setLoginStatus] = useState(0);
+  const [loginMessage, setLoginMessage] = useState("");
+  // 200 ||  400 ||  404
   const loginFunc = (e) => {
     e.preventDefault()
     const userInfo = {
@@ -14,45 +17,27 @@ export default function Login(props) {
       password,
     };
     axios
-      .post(`http://localhost:5000/users/login`, userInfo)
+    .post(`http://localhost:5000/users/login`, userInfo)
       .then((response) => {
-        console.log("DATA: ", response.data);
+        setLoginStatus(response.status);
+        setLoginMessage(response.data.message);
+        // console.log("DATA: ", response.data);
         props.setIsLoggedIn(true);
         props.setUsername(response.data.username);
       })
       .catch((err) => {
-        console.log("ERR: ", err);
+        // console.log("ERR: ", err);
+        setLoginStatus(err.response.status);
+        setLoginMessage(err.response.data.message);
+        props.setIsLoggedIn(false);
+        props.setUsername(null);
       });
   };
-
   return (
     <div className="Login">
-      {/* <form action="">
-        <label htmlFor="">Email:</label>
-        <input className="input2"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          value={email}
-          type="text"
-          placeholder="Write email here ..."
-        />
-        <br />
-        <label htmlFor="">Password:</label>
-        <input className="input2"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          value={password}
-          type="password"
-          placeholder="Write password here ..."
-        />
-        <br />
-        <Link to="/register">Don't have an account?</Link> <br />
-        <input className="button2"type="submit" value="Login" onClick={loginFunc} />
-        
-      </form> */}
-      <form>
+    <h4 className="text"><b>WELCOM BACK!</b></h4>
+    <p className="text"><b>We are happy to see you again.</b></p>
+      <form className="d-grid gap-3">
         <div className="form-floating m-3">
           <input
             type="email"
@@ -79,6 +64,17 @@ export default function Login(props) {
           />
           <label htmlFor="floatingPassword">Password</label>
         </div>
+        {loginStatus === 200 && (
+          <div class="alert alert-success text-center" role="alert">
+            {loginMessage}
+          </div>
+        )}
+
+        {(loginStatus === 400 || loginStatus === 404) && (
+          <div class="alert alert-danger text-center" role="alert">
+            {loginMessage}
+          </div>
+        )}
         <div className="text-center">
           <input
             type="submit"

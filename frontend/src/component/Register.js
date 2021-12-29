@@ -29,6 +29,8 @@ export default function Register() {
 
   return (
     <div className="Register">
+    <h4 className="text"><b>WELCOM!</b></h4>
+    <p className="text"><b>Join us now to manage your tasks easily with us.</b></p>
      <form>
      <div className="form-floating m-3">
           <input

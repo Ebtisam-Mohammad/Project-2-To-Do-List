@@ -20,12 +20,7 @@ export default function Add(props) {
           setNewTitle(e.target.value);
         }}
       />
-      <button className="btn btn-success" onClick={createNewTodo}>&#9998;</button>
+      <button className="btn btn-success" onClick={createNewTodo}>+</button>
     </div>
   );
 }
-
-{/* <div class="input-group input-group-sm mb-3">
-  <span class="input-group-text" id="inputGroup-sizing-sm">Small</span>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-</div> */}
